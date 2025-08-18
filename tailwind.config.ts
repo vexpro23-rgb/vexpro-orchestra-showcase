@@ -61,7 +61,22 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				vexpro: {
+					chat: {
+						user: 'hsl(var(--chat-user))',
+						ai: 'hsl(var(--chat-ai))',
+						input: 'hsl(var(--chat-input))'
+					}
 				}
+			},
+			backgroundImage: {
+				'vexpro-gradient': 'var(--vexpro-gradient)',
+				'vexpro-gradient-subtle': 'var(--vexpro-gradient-subtle)'
+			},
+			boxShadow: {
+				'vexpro-glow': 'var(--vexpro-glow)',
+				'vexpro': 'var(--vexpro-shadow)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
