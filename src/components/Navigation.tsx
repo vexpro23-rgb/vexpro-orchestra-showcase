@@ -1,13 +1,22 @@
-import { Button } from "@/components/ui/button";
-import { Brain, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Brain, Menu, X, User, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    setIsOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
@@ -44,7 +53,7 @@ const Navigation = () => {
                 isActive("/chat") ? "text-primary" : "text-muted-foreground"
               }`}
             >
-              Chat
+              AI Central
             </Link>
             <Link
               to="/developers"
@@ -54,13 +63,35 @@ const Navigation = () => {
             >
               Desenvolvedores
             </Link>
+            
             <div className="flex items-center space-x-4">
-              <Button variant="outline" size="sm">
-                Login
-              </Button>
-              <Button size="sm" className="bg-vexpro-gradient hover:opacity-90 transition-opacity">
-                Cadastrar
-              </Button>
+              {user ? (
+                <>
+                  <Link to="/dashboard">
+                    <Button variant="outline" size="sm">
+                      <User className="h-4 w-4 mr-2" />
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <Button variant="outline" size="sm" onClick={handleSignOut}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sair
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/auth">
+                    <Button variant="outline" size="sm">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link to="/auth">
+                    <Button size="sm" className="bg-vexpro-gradient hover:opacity-90 transition-opacity">
+                      Cadastrar
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
 
@@ -100,7 +131,7 @@ const Navigation = () => {
                 }`}
                 onClick={() => setIsOpen(false)}
               >
-                Chat
+                AI Central
               </Link>
               <Link
                 to="/developers"
@@ -113,13 +144,40 @@ const Navigation = () => {
               >
                 Desenvolvedores
               </Link>
+              
               <div className="pt-4 space-y-2">
-                <Button variant="outline" size="sm" className="w-full">
-                  Login
-                </Button>
-                <Button size="sm" className="w-full bg-vexpro-gradient hover:opacity-90 transition-opacity">
-                  Cadastrar
-                </Button>
+                {user ? (
+                  <>
+                    <Link to="/dashboard" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" size="sm" className="w-full justify-start">
+                        <User className="h-4 w-4 mr-2" />
+                        Dashboard
+                      </Button>
+                    </Link>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full justify-start"
+                      onClick={handleSignOut}
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Sair
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/auth" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" size="sm" className="w-full">
+                        Login
+                      </Button>
+                    </Link>
+                    <Link to="/auth" onClick={() => setIsOpen(false)}>
+                      <Button size="sm" className="w-full bg-vexpro-gradient hover:opacity-90 transition-opacity">
+                        Cadastrar
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
