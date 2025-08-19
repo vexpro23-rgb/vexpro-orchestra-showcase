@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      chat_history: {
+        Row: {
+          id: string
+          message: string
+          role: string
+          timestamp: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          message: string
+          role: string
+          timestamp?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          message?: string
+          role?: string
+          timestamp?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          api_requests_limit: number | null
+          api_requests_today: number | null
+          created_at: string
+          full_name: string | null
+          id: string
+          plan: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          api_requests_limit?: number | null
+          api_requests_today?: number | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          plan?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          api_requests_limit?: number | null
+          api_requests_today?: number | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          plan?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
