@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 import Navigation from '@/components/Navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,12 +15,17 @@ import {
   Zap,
   Crown,
   Infinity,
-  Gift
+  Gift,
+  Copy,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 
 const Dashboard = () => {
   const { user, profile, loading } = useAuth();
   const navigate = useNavigate();
+  const [showApiKey, setShowApiKey] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -73,6 +79,25 @@ const Dashboard = () => {
       case 'unlimited': return 'R$ 199,90/mês';
       default: return 'Grátis';
     }
+  };
+
+  const copyApiKey = async () => {
+    if (profile?.api_key) {
+      await navigator.clipboard.writeText(profile.api_key);
+      toast({
+        title: "API Key copiada!",
+        description: "A chave API foi copiada para a área de transferência."
+      });
+    }
+  };
+
+  const toggleApiKeyVisibility = () => {
+    setShowApiKey(!showApiKey);
+  };
+
+  const maskApiKey = (key: string) => {
+    if (!key) return '';
+    return key.substring(0, 8) + '••••••••••••••••' + key.substring(key.length - 4);
   };
 
   return (
@@ -151,6 +176,47 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* API Key Section */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle>Sua API Key</CardTitle>
+              <CardDescription>
+                Use esta chave para autenticar suas requisições à API da Vexpro AI
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <div className="flex-1 p-3 bg-muted rounded-md font-mono text-sm">
+                  {profile?.api_key ? (
+                    showApiKey ? profile.api_key : maskApiKey(profile.api_key)
+                  ) : (
+                    'Carregando...'
+                  )}
+                </div>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={toggleApiKeyVisibility}
+                  disabled={!profile?.api_key}
+                >
+                  {showApiKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={copyApiKey}
+                  disabled={!profile?.api_key}
+                >
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                ⚠️ Mantenha sua API key segura e não a compartilhe publicamente. 
+                Use-a somente em requisições do lado do servidor.
+              </p>
+            </CardContent>
+          </Card>
 
           {/* Usage Progress */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">

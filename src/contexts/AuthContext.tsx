@@ -9,6 +9,7 @@ interface Profile {
   plan: string;
   api_requests_today: number;
   api_requests_limit: number;
+  api_key: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -55,7 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
 
-      setProfile(data);
+      setProfile(data as Profile);
     } catch (error) {
       console.error('Error fetching profile:', error);
     }
