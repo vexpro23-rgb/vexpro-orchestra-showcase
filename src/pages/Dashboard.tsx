@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
-  const { user, profile, loading } = useAuth();
+  const { user, profile, apiKeyData, loading } = useAuth();
   const navigate = useNavigate();
   const [showApiKey, setShowApiKey] = useState(false);
   const { toast } = useToast();
@@ -47,8 +47,8 @@ const Dashboard = () => {
   if (!user) return null;
 
   const getProgressPercentage = () => {
-    if (!profile) return 0;
-    return (profile.api_requests_today / profile.api_requests_limit) * 100;
+    if (!apiKeyData) return 0;
+    return (apiKeyData.current_requests / apiKeyData.daily_limit) * 100;
   };
 
   const getPlanIcon = (plan: string) => {
@@ -82,8 +82,8 @@ const Dashboard = () => {
   };
 
   const copyApiKey = async () => {
-    if (profile?.api_key) {
-      await navigator.clipboard.writeText(profile.api_key);
+    if (apiKeyData?.api_key) {
+      await navigator.clipboard.writeText(apiKeyData.api_key);
       toast({
         title: "API Key copiada!",
         description: "A chave API foi copiada para a área de transferência."
@@ -119,12 +119,12 @@ const Dashboard = () => {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Plano Atual</CardTitle>
-                {getPlanIcon(profile?.plan || 'freemium')}
+                {getPlanIcon(apiKeyData?.plan_name || 'freemium')}
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{getPlanLabel(profile?.plan || 'freemium')}</div>
+                <div className="text-2xl font-bold">{getPlanLabel(apiKeyData?.plan_name || 'freemium')}</div>
                 <p className="text-xs text-muted-foreground">
-                  {getPlanPrice(profile?.plan || 'freemium')}
+                  {getPlanPrice(apiKeyData?.plan_name || 'freemium')}
                 </p>
               </CardContent>
             </Card>
@@ -136,10 +136,10 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {profile?.api_requests_today || 0}
+                  {apiKeyData?.current_requests || 0}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  de {profile?.api_requests_limit || 100} disponíveis
+                  de {apiKeyData?.daily_limit === -1 ? '∞' : apiKeyData?.daily_limit || 100} disponíveis
                 </p>
               </CardContent>
             </Card>
@@ -151,7 +151,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {profile?.api_requests_limit === -1 ? '∞' : profile?.api_requests_limit || 100}
+                  {apiKeyData?.daily_limit === -1 ? '∞' : apiKeyData?.daily_limit || 100}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   requisições por dia
@@ -171,7 +171,7 @@ const Dashboard = () => {
                   </Badge>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Desde {new Date(profile?.created_at || '').toLocaleDateString('pt-BR')}
+                  Desde {new Date(apiKeyData?.created_at || '').toLocaleDateString('pt-BR')}
                 </p>
               </CardContent>
             </Card>
@@ -188,8 +188,8 @@ const Dashboard = () => {
             <CardContent className="space-y-4">
               <div className="flex items-center space-x-2">
                 <div className="flex-1 p-3 bg-muted rounded-md font-mono text-sm">
-                  {profile?.api_key ? (
-                    showApiKey ? profile.api_key : maskApiKey(profile.api_key)
+                  {apiKeyData?.api_key ? (
+                    showApiKey ? apiKeyData.api_key : maskApiKey(apiKeyData.api_key)
                   ) : (
                     'Carregando...'
                   )}
@@ -198,7 +198,7 @@ const Dashboard = () => {
                   variant="outline"
                   size="icon"
                   onClick={toggleApiKeyVisibility}
-                  disabled={!profile?.api_key}
+                  disabled={!apiKeyData?.api_key}
                 >
                   {showApiKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </Button>
@@ -206,7 +206,7 @@ const Dashboard = () => {
                   variant="outline"
                   size="icon"
                   onClick={copyApiKey}
-                  disabled={!profile?.api_key}
+                  disabled={!apiKeyData?.api_key}
                 >
                   <Copy className="h-4 w-4" />
                 </Button>
@@ -232,18 +232,18 @@ const Dashboard = () => {
                   <div className="flex justify-between text-sm">
                     <span>Requisições utilizadas</span>
                     <span>
-                      {profile?.api_requests_today || 0} / {profile?.api_requests_limit === -1 ? '∞' : profile?.api_requests_limit || 100}
+                      {apiKeyData?.current_requests || 0} / {apiKeyData?.daily_limit === -1 ? '∞' : apiKeyData?.daily_limit || 100}
                     </span>
                   </div>
                   <Progress 
-                    value={profile?.api_requests_limit === -1 ? 0 : getProgressPercentage()} 
+                    value={apiKeyData?.daily_limit === -1 ? 0 : getProgressPercentage()} 
                     className="h-2"
                   />
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {profile?.api_requests_limit === -1 
+                  {apiKeyData?.daily_limit === -1 
                     ? 'Requisições ilimitadas no seu plano'
-                    : `${((profile?.api_requests_limit || 100) - (profile?.api_requests_today || 0))} requisições restantes hoje`
+                    : `${((apiKeyData?.daily_limit || 100) - (apiKeyData?.current_requests || 0))} requisições restantes hoje`
                   }
                 </p>
               </CardContent>
@@ -259,7 +259,7 @@ const Dashboard = () => {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <p className="text-sm">
-                    Plano atual: <Badge variant="outline">{getPlanLabel(profile?.plan || 'freemium')}</Badge>
+                    Plano atual: <Badge variant="outline">{getPlanLabel(apiKeyData?.plan_name || 'freemium')}</Badge>
                   </p>
                   <p className="text-xs text-muted-foreground">
                     Explore nossos planos para ter acesso a mais requisições e recursos avançados.

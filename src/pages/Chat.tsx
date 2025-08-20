@@ -8,6 +8,7 @@ import { Send, Bot, User, Loader2, Sparkles, Gift, Zap, Crown, Infinity, Check }
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
   id: string;
@@ -21,7 +22,7 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPlans, setShowPlans] = useState(false);
-  const { user, profile } = useAuth();
+  const { user, profile, apiKeyData } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,23 +32,53 @@ const Chat = () => {
   }, [user, navigate]);
 
   useEffect(() => {
-    // Simulate loading chat history from API
-    // In real implementation, this would fetch from your API using the authenticated user's ID
     const loadChatHistory = async () => {
-      // Simulated history for demo
-      const demoHistory: Message[] = [
-        {
-          id: "1",
-          content: "Olá! Bem-vindo de volta ao Vexpro AI Central. Como posso ajudá-lo hoje?",
-          isUser: false,
-          timestamp: new Date(Date.now() - 3600000) // 1 hour ago
+      if (!user) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from('chat_history')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('timestamp', { ascending: true })
+          .limit(50);
+
+        if (error) {
+          console.error('Error loading chat history:', error);
+          // Show welcome message if no history
+          setMessages([{
+            id: "1",
+            content: "Olá! Bem-vindo de volta ao Vexpro AI Central. Como posso ajudá-lo hoje?",
+            isUser: false,
+            timestamp: new Date()
+          }]);
+          return;
         }
-      ];
-      setMessages(demoHistory);
+
+        if (data && data.length > 0) {
+          const chatMessages: Message[] = data.map(msg => ({
+            id: msg.id,
+            content: msg.message,
+            isUser: msg.role === 'user',
+            timestamp: new Date(msg.timestamp)
+          }));
+          setMessages(chatMessages);
+        } else {
+          // Show welcome message if no history
+          setMessages([{
+            id: "1",
+            content: "Olá! Bem-vindo de volta ao Vexpro AI Central. Como posso ajudá-lo hoje?",
+            isUser: false,
+            timestamp: new Date()
+          }]);
+        }
+      } catch (error) {
+        console.error('Error loading chat history:', error);
+      }
     };
 
     loadChatHistory();
-  }, []);
+  }, [user]);
 
   const handleSendMessage = async () => {
     if (!input.trim() || isLoading) return;
@@ -64,19 +95,23 @@ const Chat = () => {
     setIsLoading(true);
 
     try {
-      // In real implementation, send authenticated user's ID
-      const response = await fetch("http://18.230.116.139:8000/ask", {
-        method: "POST",
+      // Get user session for authorization
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        throw new Error('User not authenticated');
+      }
+
+      // Call our edge function which will handle API key and external API communication
+      const { data, error } = await supabase.functions.invoke('ai-chat', {
+        body: { question: userMessage.content },
         headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          question: userMessage.content,
-          user_id: "authenticated_user_123" // Replace with actual user ID
-        })
+          Authorization: `Bearer ${session.access_token}`
+        }
       });
 
-      const data = await response.json();
+      if (error) {
+        throw error;
+      }
       
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -264,7 +299,7 @@ const Chat = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {plans.map((plan) => {
                   const IconComponent = plan.icon;
-                  const isCurrentPlan = profile?.plan === plan.id;
+                  const isCurrentPlan = apiKeyData?.plan_name === plan.id;
                   
                   return (
                     <Card key={plan.id} className={`relative ${plan.popular ? 'ring-2 ring-primary' : ''}`}>

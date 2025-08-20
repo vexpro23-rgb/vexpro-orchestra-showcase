@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      api_keys: {
+        Row: {
+          api_key: string
+          created_at: string
+          current_requests: number
+          daily_limit: number
+          id: string
+          is_active: boolean
+          last_reset_at: string
+          plan_name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          api_key: string
+          created_at?: string
+          current_requests?: number
+          daily_limit?: number
+          id?: string
+          is_active?: boolean
+          last_reset_at?: string
+          plan_name?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          api_key?: string
+          created_at?: string
+          current_requests?: number
+          daily_limit?: number
+          id?: string
+          is_active?: boolean
+          last_reset_at?: string
+          plan_name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       chat_history: {
         Row: {
           id: string
@@ -40,6 +79,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          api_key: string | null
           api_requests_limit: number | null
           api_requests_today: number | null
           created_at: string
@@ -50,6 +90,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          api_key?: string | null
           api_requests_limit?: number | null
           api_requests_today?: number | null
           created_at?: string
@@ -60,6 +101,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          api_key?: string | null
           api_requests_limit?: number | null
           api_requests_today?: number | null
           created_at?: string
@@ -76,7 +118,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_api_key: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
