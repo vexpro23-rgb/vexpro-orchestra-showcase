@@ -77,6 +77,105 @@ export type Database = {
         }
         Relationships: []
       }
+      orders: {
+        Row: {
+          amount: number
+          asaas_payment_id: string | null
+          bar_code: string | null
+          billing_type: string | null
+          created_at: string
+          currency: string | null
+          due_date: string | null
+          id: string
+          invoice_url: string | null
+          payment_url: string | null
+          pix_code: string | null
+          plan_name: string
+          qr_code: string | null
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          asaas_payment_id?: string | null
+          bar_code?: string | null
+          billing_type?: string | null
+          created_at?: string
+          currency?: string | null
+          due_date?: string | null
+          id?: string
+          invoice_url?: string | null
+          payment_url?: string | null
+          pix_code?: string | null
+          plan_name: string
+          qr_code?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          asaas_payment_id?: string | null
+          bar_code?: string | null
+          billing_type?: string | null
+          created_at?: string
+          currency?: string | null
+          due_date?: string | null
+          id?: string
+          invoice_url?: string | null
+          payment_url?: string | null
+          pix_code?: string | null
+          plan_name?: string
+          qr_code?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      plans: {
+        Row: {
+          created_at: string
+          currency: string | null
+          daily_limit: number
+          description: string | null
+          display_name: string
+          features: Json | null
+          id: string
+          is_active: boolean | null
+          name: string
+          price: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          currency?: string | null
+          daily_limit: number
+          description?: string | null
+          display_name: string
+          features?: Json | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          price: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          currency?: string | null
+          daily_limit?: number
+          description?: string | null
+          display_name?: string
+          features?: Json | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          price?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           api_key: string | null
