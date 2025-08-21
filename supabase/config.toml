@@ -2,3 +2,6 @@ project_id = "ukouxthzfkjbodswhfbp"
 
 [functions.ai-chat]
 verify_jwt = true
+
+[functions.create-payment]
+verify_jwt = true

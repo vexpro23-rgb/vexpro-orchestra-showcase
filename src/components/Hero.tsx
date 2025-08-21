@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Brain, Zap, Globe } from "lucide-react";
+import { ArrowRight, Brain, Zap, Globe, DollarSign } from "lucide-react";
+import { Link } from "react-router-dom";
 import ChatDemo from "./ChatDemo";
 
 const Hero = () => {
@@ -34,13 +35,18 @@ const Hero = () => {
             </div>
 
             <div className="animate-slide-up flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-vexpro-gradient hover:opacity-90 transition-opacity">
-                Começar Agora
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button size="lg" variant="outline">
-                Ver Documentação
-              </Button>
+              <Link to="/chat">
+                <Button size="lg" className="bg-vexpro-gradient hover:opacity-90 transition-opacity">
+                  Começar Agora
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="/pricing">
+                <Button size="lg" variant="outline">
+                  <DollarSign className="mr-2 h-5 w-5" />
+                  Ver Preços
+                </Button>
+              </Link>
             </div>
           </div>
 

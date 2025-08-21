@@ -63,6 +63,14 @@ const Navigation = () => {
             >
               Desenvolvedores
             </Link>
+            <Link
+              to="/pricing"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/pricing") ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              Preços
+            </Link>
             
             <div className="flex items-center space-x-4">
               {user ? (
@@ -143,6 +151,17 @@ const Navigation = () => {
                 onClick={() => setIsOpen(false)}
               >
                 Desenvolvedores
+              </Link>
+              <Link
+                to="/pricing"
+                className={`block px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                  isActive("/pricing")
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                Preços
               </Link>
               
               <div className="pt-4 space-y-2">
