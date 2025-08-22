@@ -8,110 +8,110 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Light mode colors */
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    /* Light mode colors - Azul mais suave */
+    --background: 220 30% 97%;
+    --foreground: 220 30% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card: 220 30% 98%;
+    --card-foreground: 220 30% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover: 220 30% 98%;
+    --popover-foreground: 220 30% 15%;
 
-    --primary: 240 100% 65%;
+    --primary: 220 90% 50%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 220 20% 90%;
+    --secondary-foreground: 220 30% 20%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 220 20% 92%;
+    --muted-foreground: 220 10% 45%;
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --accent: 220 25% 88%;
+    --accent-foreground: 220 30% 20%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 100% 65%;
+    --border: 220 15% 85%;
+    --input: 220 15% 85%;
+    --ring: 220 90% 50%;
 
     --radius: 0.75rem;
 
     /* Vexpro Design Tokens - Light */
-    --vexpro-gradient: linear-gradient(135deg, hsl(240 100% 65%) 0%, hsl(270 100% 70%) 100%);
-    --vexpro-gradient-subtle: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(240 5% 96%) 100%);
-    --vexpro-glow: 0 0 40px hsl(240 100% 65% / 0.3);
-    --vexpro-shadow: 0 25px 50px -12px hsl(240 100% 65% / 0.1);
-    --vexpro-border: hsl(240 5.9% 90%);
+    --vexpro-gradient: linear-gradient(135deg, hsl(220 90% 50%) 0%, hsl(240 90% 60%) 100%);
+    --vexpro-gradient-subtle: linear-gradient(135deg, hsl(220 30% 97%) 0%, hsl(220 25% 94%) 100%);
+    --vexpro-glow: 0 0 40px hsl(220 90% 50% / 0.3);
+    --vexpro-shadow: 0 25px 50px -12px hsl(220 90% 50% / 0.15);
+    --vexpro-border: hsl(220 15% 85%);
     
-    --chat-user: 240 100% 65%;
-    --chat-ai: 240 4.8% 95.9%;
-    --chat-input: 0 0% 100%;
+    --chat-user: 220 90% 50%;
+    --chat-ai: 220 20% 90%;
+    --chat-input: 220 30% 98%;
 
     --animation-duration: 0.4s;
     --animation-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-background: 220 25% 94%;
+    --sidebar-foreground: 220 30% 25%;
+    --sidebar-primary: 220 90% 50%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 220 20% 88%;
+    --sidebar-accent-foreground: 220 30% 20%;
+    --sidebar-border: 220 15% 82%;
+    --sidebar-ring: 220 90% 50%;
   }
 
   .dark {
-    /* Dark mode colors */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    /* Dark mode colors - Azul escuro */
+    --background: 220 50% 8%;
+    --foreground: 220 20% 90%;
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 220 40% 10%;
+    --card-foreground: 220 20% 90%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 220 40% 10%;
+    --popover-foreground: 220 20% 90%;
 
-    --primary: 240 100% 65%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 220 90% 60%;
+    --primary-foreground: 220 50% 8%;
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 220 30% 15%;
+    --secondary-foreground: 220 20% 85%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 220 30% 15%;
+    --muted-foreground: 220 10% 60%;
 
-    --accent: 12 6.5% 15.1%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 220 35% 18%;
+    --accent-foreground: 220 20% 85%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 100% 65%;
+    --border: 220 30% 18%;
+    --input: 220 30% 18%;
+    --ring: 220 90% 60%;
 
     /* Vexpro Design Tokens - Dark */
-    --vexpro-gradient: linear-gradient(135deg, hsl(240 100% 65%) 0%, hsl(270 100% 70%) 100%);
-    --vexpro-gradient-subtle: linear-gradient(135deg, hsl(240 10% 3.9%) 0%, hsl(240 5% 6%) 100%);
-    --vexpro-glow: 0 0 40px hsl(240 100% 65% / 0.3);
-    --vexpro-shadow: 0 25px 50px -12px hsl(240 100% 10% / 0.5);
-    --vexpro-border: hsl(240 3.7% 15.9%);
+    --vexpro-gradient: linear-gradient(135deg, hsl(220 90% 60%) 0%, hsl(240 90% 65%) 100%);
+    --vexpro-gradient-subtle: linear-gradient(135deg, hsl(220 50% 8%) 0%, hsl(220 40% 12%) 100%);
+    --vexpro-glow: 0 0 40px hsl(220 90% 60% / 0.4);
+    --vexpro-shadow: 0 25px 50px -12px hsl(220 90% 20% / 0.6);
+    --vexpro-border: hsl(220 30% 18%);
     
-    --chat-user: 240 100% 65%;
-    --chat-ai: 240 3.7% 15.9%;
-    --chat-input: 240 5% 10%;
+    --chat-user: 220 90% 60%;
+    --chat-ai: 220 30% 15%;
+    --chat-input: 220 40% 12%;
 
-    --sidebar-background: 240 10% 3.9%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 0 0% 98%;
-    --sidebar-primary-foreground: 240 5.9% 10%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 240 100% 65%;
+    --sidebar-background: 220 40% 10%;
+    --sidebar-foreground: 220 20% 85%;
+    --sidebar-primary: 220 90% 60%;
+    --sidebar-primary-foreground: 220 50% 8%;
+    --sidebar-accent: 220 30% 15%;
+    --sidebar-accent-foreground: 220 20% 85%;
+    --sidebar-border: 220 30% 18%;
+    --sidebar-ring: 220 90% 60%;
   }
 
 }

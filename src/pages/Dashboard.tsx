@@ -267,7 +267,7 @@ const Dashboard = () => {
                 </div>
                 <Button 
                   className="w-full bg-vexpro-gradient hover:opacity-90"
-                  onClick={() => navigate('/chat')}
+                  onClick={() => navigate('/pricing')}
                 >
                   <CreditCard className="mr-2 h-4 w-4" />
                   Ver Planos
@@ -297,7 +297,7 @@ const Dashboard = () => {
                 <Button 
                   variant="outline" 
                   className="h-20 flex flex-col space-y-2"
-                  onClick={() => navigate('/developers')}
+                  onClick={() => navigate('/documentation')}
                 >
                   <BarChart3 className="h-6 w-6" />
                   <span>Documentação</span>
@@ -305,7 +305,7 @@ const Dashboard = () => {
                 <Button 
                   variant="outline" 
                   className="h-20 flex flex-col space-y-2"
-                  onClick={() => navigate('/chat')}
+                  onClick={() => navigate('/pricing')}
                 >
                   <CreditCard className="h-6 w-6" />
                   <span>Gerenciar Plano</span>
