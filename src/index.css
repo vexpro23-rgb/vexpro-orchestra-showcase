@@ -8,6 +8,63 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Light mode colors */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 240 100% 65%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 100% 65%;
+
+    --radius: 0.75rem;
+
+    /* Vexpro Design Tokens - Light */
+    --vexpro-gradient: linear-gradient(135deg, hsl(240 100% 65%) 0%, hsl(270 100% 70%) 100%);
+    --vexpro-gradient-subtle: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(240 5% 96%) 100%);
+    --vexpro-glow: 0 0 40px hsl(240 100% 65% / 0.3);
+    --vexpro-shadow: 0 25px 50px -12px hsl(240 100% 65% / 0.1);
+    --vexpro-border: hsl(240 5.9% 90%);
+    
+    --chat-user: 240 100% 65%;
+    --chat-ai: 240 4.8% 95.9%;
+    --chat-input: 0 0% 100%;
+
+    --animation-duration: 0.4s;
+    --animation-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark mode colors */
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
@@ -36,9 +93,7 @@ All colors MUST be HSL.
     --input: 240 3.7% 15.9%;
     --ring: 240 100% 65%;
 
-    --radius: 0.75rem;
-
-    /* Vexpro Design Tokens */
+    /* Vexpro Design Tokens - Dark */
     --vexpro-gradient: linear-gradient(135deg, hsl(240 100% 65%) 0%, hsl(270 100% 70%) 100%);
     --vexpro-gradient-subtle: linear-gradient(135deg, hsl(240 10% 3.9%) 0%, hsl(240 5% 6%) 100%);
     --vexpro-glow: 0 0 40px hsl(240 100% 65% / 0.3);
@@ -49,24 +104,14 @@ All colors MUST be HSL.
     --chat-ai: 240 3.7% 15.9%;
     --chat-input: 240 5% 10%;
 
-    --animation-duration: 0.4s;
-    --animation-ease: cubic-bezier(0.16, 1, 0.3, 1);
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 240 10% 3.9%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 240 5.9% 10%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 240 100% 65%;
   }
 
 }
