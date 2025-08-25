@@ -26,7 +26,7 @@ const Auth = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [user, navigate]);
 
@@ -69,7 +69,7 @@ const Auth = () => {
         title: "Login realizado com sucesso!",
         description: "Bem-vindo de volta à Vexpro AI Central."
       });
-      navigate('/');
+      navigate('/dashboard');
     }
     setLoading(false);
   };
@@ -124,6 +124,8 @@ const Auth = () => {
         title: "Conta criada com sucesso!",
         description: "Verifique seu email para confirmar a conta antes de fazer login."
       });
+      // Para ambientes de desenvolvimento, redireciona direto para dashboard
+      navigate('/dashboard');
     }
     setLoading(false);
   };

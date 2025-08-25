@@ -14,45 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      api_keys: {
-        Row: {
-          api_key: string
-          created_at: string
-          current_requests: number
-          daily_limit: number
-          id: string
-          is_active: boolean
-          last_reset_at: string
-          plan_name: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          api_key: string
-          created_at?: string
-          current_requests?: number
-          daily_limit?: number
-          id?: string
-          is_active?: boolean
-          last_reset_at?: string
-          plan_name?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          api_key?: string
-          created_at?: string
-          current_requests?: number
-          daily_limit?: number
-          id?: string
-          is_active?: boolean
-          last_reset_at?: string
-          plan_name?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       chat_history: {
         Row: {
           id: string
@@ -184,7 +145,9 @@ export type Database = {
           created_at: string
           full_name: string | null
           id: string
+          last_used_at: string | null
           plan: string | null
+          temp_column: string | null
           updated_at: string
           user_id: string
         }
@@ -195,7 +158,9 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          last_used_at?: string | null
           plan?: string | null
+          temp_column?: string | null
           updated_at?: string
           user_id: string
         }
@@ -206,7 +171,9 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          last_used_at?: string | null
           plan?: string | null
+          temp_column?: string | null
           updated_at?: string
           user_id?: string
         }
