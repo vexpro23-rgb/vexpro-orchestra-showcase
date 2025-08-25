@@ -57,7 +57,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async () => {
-    if (!user) return;
+    if (!user) {
+      console.log('fetchProfile: No user found');
+      return;
+    }
+    
+    console.log('fetchProfile: Fetching profile for user:', user.id);
     
     try {
       // Fetch profile data (which includes API key info in this table)
@@ -67,9 +72,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .eq('user_id', user.id)
         .maybeSingle();
 
+      console.log('fetchProfile: Profile query result:', { profileData, profileError });
+
       if (profileError && profileError.code !== 'PGRST116') {
         console.error('Error fetching profile:', profileError);
       } else if (profileData) {
+        console.log('fetchProfile: Setting profile data:', profileData);
         setProfile(profileData as Profile);
         
         // Map profile data to apiKeyData format for compatibility
@@ -85,7 +93,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           created_at: profileData.created_at,
           updated_at: profileData.updated_at
         };
+        console.log('fetchProfile: Setting API key data:', mappedApiKeyData);
         setApiKeyData(mappedApiKeyData);
+      } else {
+        console.log('fetchProfile: No profile data found');
       }
     } catch (error) {
       console.error('Error fetching profile data:', error);
@@ -96,6 +107,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('Auth state change:', { event, session: session?.user?.id });
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
@@ -114,6 +126,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // Check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('Initial session check:', session?.user?.id);
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);

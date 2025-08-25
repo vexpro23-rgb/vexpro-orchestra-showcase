@@ -27,8 +27,12 @@ const Dashboard = () => {
   const [showApiKey, setShowApiKey] = useState(false);
   const { toast } = useToast();
 
+  console.log('Dashboard render:', { user: user?.id, profile, apiKeyData, loading });
+
   useEffect(() => {
+    console.log('Dashboard useEffect:', { user: user?.id, loading });
     if (!loading && !user) {
+      console.log('Dashboard: Redirecting to auth');
       navigate('/auth');
     }
   }, [user, loading, navigate]);
