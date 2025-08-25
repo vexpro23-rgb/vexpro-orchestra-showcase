@@ -60,33 +60,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!user) return;
     
     try {
-      // Fetch both profile and API key data
-      const [profileResult, apiKeyResult] = await Promise.all([
-        supabase
-          .from('profiles')
-          .select('*')
-          .eq('user_id', user.id)
-          .maybeSingle(),
-        supabase
-          .from('api_keys')
-          .select('*')
-          .eq('user_id', user.id)
-          .maybeSingle()
-      ]);
+      // Fetch profile data (which includes API key info in this table)
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
 
-      if (profileResult.error && profileResult.error.code !== 'PGRST116') {
-        console.error('Error fetching profile:', profileResult.error);
-      } else {
-        setProfile(profileResult.data as Profile);
-      }
-
-      if (apiKeyResult.error && apiKeyResult.error.code !== 'PGRST116') {
-        console.error('Error fetching API key data:', apiKeyResult.error);
-      } else {
-        setApiKeyData(apiKeyResult.data as ApiKeyData);
+      if (profileError && profileError.code !== 'PGRST116') {
+        console.error('Error fetching profile:', profileError);
+      } else if (profileData) {
+        setProfile(profileData as Profile);
+        
+        // Map profile data to apiKeyData format for compatibility
+        const mappedApiKeyData: ApiKeyData = {
+          id: profileData.id,
+          user_id: profileData.user_id,
+          api_key: profileData.api_key || '',
+          plan_name: profileData.plan || 'freemium',
+          daily_limit: profileData.api_requests_limit || 100,
+          current_requests: profileData.api_requests_today || 0,
+          is_active: true,
+          last_reset_at: profileData.updated_at,
+          created_at: profileData.created_at,
+          updated_at: profileData.updated_at
+        };
+        setApiKeyData(mappedApiKeyData);
       }
     } catch (error) {
-      console.error('Error fetching profile/API data:', error);
+      console.error('Error fetching profile data:', error);
     }
   };
 
